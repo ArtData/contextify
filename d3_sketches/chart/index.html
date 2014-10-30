@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>...</title>
+		<script type="text/javascript" src="d3.v3.js"></script>
+		<style type="text/css">
+
+			body {
+				background-color: #e6ceb8;
+			}
+
+			svg {
+				/*border: 1px solid gray;*/
+			}
+
+			path {
+				fill: none;
+				stroke: black;
+				stroke-width: 1;
+				shape-rendering: crispEdges;
+			}
+
+
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 1000;
+			var h = 300;
+			var padding = 25;
+
+			var lifeScale = d3.scale.linear()
+								.domain([ 1930, 1992 ])
+								.range([ padding, w - padding ]);
+
+			var radiusScale = d3.scale.linear()
+								.domain([ 0, 6 ])
+								.range([ 0, 50 ]);
+			
+			var timeAxis = d3.svg.axis()
+							.scale(lifeScale)
+							.orient("top");
+
+			var popScale = d3.scale.linear()
+								.domain([ 0, 31000000 ])
+								.range([ 200, 100 ]);				
+
+			var popLine = d3.svg.line()
+				.x(function(d) { return lifeScale(d.Year); })
+				.y(function(d) { return popScale(d["California population"].replace(/,/g,'')); });
+
+
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			//Load in GeoJSON data
+			d3.csv("Arneson Data - Data Overview.csv", function(csv) {
+				
+				svg.append("g")
+					.attr("class", "axis")
+					.attr("transform", "translate(0, 50)")
+					.call(timeAxis);
+
+				svg.selectAll("circle")
+				   .data(csv)
+				   .enter()
+				   .append("circle")
+				   .attr("cx", function(d) {
+				   		return lifeScale(d.Year);
+				   })
+				   .attr("cy", 50)
+				   .attr("r", function(d) {
+				   		return radiusScale(d["Produced work?"]);
+				   })
+				   .style("fill", "steelblue")
+				   .style("opacity", 0.5);
+		
+
+				   console.log(csv)
+				svg.append("g")
+					.append("path")
+					.datum(csv)
+					.attr("d", popLine)
+					.attr("stroke", "steelblue");
+
+
+
+			});
+			
+		</script>
+	</body>
+</html>
