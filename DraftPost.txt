@@ -1,0 +1,181 @@
+Scott Murray (@alignedleft) was our Captain Context for the day, leading a team exploring ways to connect individual artworks to the context of the larger world in which they were created. 
+
+We started by making a [mind map](https://en.wikipedia.org/wiki/Mind_map) looking at how we'd move out from the artwork into the infinitely complex world beyond:
+
+![Artwork context mindmap](https://raw.githubusercontent.com/ArtData/contextify/master/whiteboards/ContextMindmap.jpg)
+
+The map covers everything from personal relationships and artistic influence to political and economic data, from the weather to that year's World Series winner (hey, the Giants were on our minds!).
+
+How do we start to get our arms around such a vast array of possible roads to pursue for any of 70,000 artworks available through the API?
+
+First, we decided to focus on two pieces, one from a Bay Area artist (Robert Arneson) and one from a globally famous artist (Pablo Picasso). The thinking there was that context might be thin for Arneson and overwhelming for Picasso.
+
+As it turned out, the context for Arneson's self-portrait sculpture "California Artist" was rich enough, and our time short enough, that we worked just with that one sculpture.
+
+Here's where we ended up:
+
+![End-of-day concept sketch](https://raw.githubusercontent.com/ArtData/contextify/master/Mockup.png)
+
+The three columns at the top represent (1) the regional context of the work (and Pantone colors from 1982!); (2) the work itself, with data about the material and size from the API; and (3) the beginnings of biographical context about Arneson.
+
+Along the bottom is a timeline of Arneson's like (born 1930, died 1992) with the works in SFMOMA's collection placed along the line. Larger circles mean more works in that year. This timeline shows that, based on the SFMOMA collection anyway, Arneson's work didn't start achieve museum collection status until he was in is late 30s.
+
+Below that is a first pass at charting other data through the lens of Arneson's lifespan. This chart shows the change in California's population from 1930 to 1992, though the Y axis might be a bit compressed to give a sense of just how much the population changed in that time.
+
+And here's how we got there:
+
+1. Scott and Mathieu worked on wireframes and the final sketch
+2. Stella scoured the internet for context sources
+3. Victor and I pulled data out of the API and started charting it
+
+## The artwork and artist in the API
+
+Where did we start?
+
+Here's what "California Artist" looks like in the API:
+```
+{
+  "_id": {
+    "$oid": "5418a96ea45f887a02000004"
+  },
+  "accession_id": "83.108.A-B",
+  "accession_method": "Purchase",
+  "accession_year": null,
+  "artwork_id": 5,
+  "collection_group": "",
+  "components": null,
+  "copyright_type": "",
+  "creators": [
+    {
+      "$ref": "artists",
+      "$id": {
+        "$oid": "54189f35a45f8874c6000007"
+      },
+      "artist": "Robert Arneson",
+      "artist_id": 32,
+      "attribution": "",
+      "date": "",
+      "extent": "",
+      "place": "",
+      "remarks": "",
+      "role": "Primary"
+    }
+  ],
+  "credit_collection_sfmoma": "",
+  "credit_line": "Gift of the Modern Art Council",
+  "current_location": "CC : Two : Room 210 : Unit 001 : Floor",
+  "custodian": "",
+  "dates": {
+    "creation_date": "1982",
+    "display": "1982",
+    "display_alt": "1982",
+    "earliest": "1982",
+    "latest": "1982"
+  },
+  "dedication": null,
+  "departments": [
+    "Painting and Sculpture"
+  ],
+  "description": "20th-century USA sculpture",
+  "dimensions": {
+    "extent": "overall",
+    "depth": "20 1\/4 in.",
+    "display": "68 1\/4 in. x 27 1\/2 in. x 20 1\/4 in. (173.36 cm x 69.85 cm x 51.44 cm)",
+    "height": "68 1\/4 in.",
+    "weight": "",
+    "width": "27 1\/2 in."
+  },
+  "display_medium": "stoneware with glazes",
+  "display_title": "California Artist",
+  "donor_id": 112,
+  "edition": {
+    "flag": false,
+    "id": "",
+    "number": "",
+    "proofs": "",
+    "size": "",
+    "type": ""
+  },
+  "embark_datestamp": "2014-08-27",
+  "file_id": 121435,
+  "getty_ulan_id": "",
+  "image": {
+    "aspect_ratio": 0.582,
+    "image_url": "https:\/\/api.sfmoma.org\/images\/83.108.A-B_01_d04.jpg",
+    "file": "83.108.A-B_01_d04.jpg",
+    "type": "JPEG",
+    "height": 1024,
+    "width": 596
+  },
+  "is_component": null,
+  "legal_status": "accessioned",
+  "marks": "",
+  "medium": "stoneware with glazes",
+  "mult_artists": null,
+  "n_components": 2,
+  "object_type": "sculpture",
+  "origin": {
+    "getty_tgn_id": "",
+    "continent": "North America",
+    "country": "United States",
+    "state_province": "California",
+    "city": "Benicia",
+    "neighborhood": "",
+    "historic_name": ""
+  },
+  "percent_owned": "",
+  "sort_artist": "Arneson, Robert",
+  "style": "",
+  "sub_medium": "",
+  "support": "",
+  "support_detail": "",
+  "temp_id": "83.108.A-B",
+  "title": "",
+  "title_markup": "",
+  "two_dimensional": false,
+  "url": null,
+  "verified": true,
+  "whole_object": 0
+}
+```
+
+And here's what Arneson looks like in the API
+
+```
+{
+  "_id": {
+    "$oid": "54189f35a45f8874c6000007"
+  },
+  "_slugs": [
+    "Robert_Arneson"
+  ],
+  "artist_id": 32,
+  "artist_label": "",
+  "artworks": [
+    {...},
+  ],
+  "verified": true
+}
+```
+## What is context?
+
+Stella and I took slightly different directions in the search for context. Stella dug into Wikipedia and the New York Times API, unearthing gems about Arneson's friends, rivals, and influences. She also gathered up more general data sources, such as data.gov, that I pursued.
+
+My thinking was that going after general data sources would lead to context sources that could be used across more artworks and artists. Population, economic outputs, demographics, that sort of thing.
+
+Here's the full list of places we looked for context, beyond the API itself:
+
+* Wikipedia
+* NOAA, historic weather data
+* NYT article search
+* World Bank Data GDP, unemployment rate post 1991
+* Data.gov
+* US Rainfall 1960-1991
+* Askart.com
+* loc.gov (elections/politicians)
+
+We quickly discovered that rich context is plentiful even for lesser-known artists. Turning that context into relevant data, however, is much more challenging. Economics and population data will work: We know this piece was created in 1982. What's the nearest census population for California? And what about the state or national GDP?
+
+But how much context does that really give us? Stella found much richer data in the New York Times archive and in Wikipedia. Linking to those queries is easy. Turning the results into actionable data is hard.
+
+At the end of the day, I was excited about where we ended up: The timeline placing the work within the context of an artist's own lifespan is simple and compelling, and easily done with the API as it stands. Adding more layers of context from there remains a mostly human-driven endeavor, rather than a data-driven one. In the near term, there's no danger that automation will replace the careful work of curators and interpretive staff in pulling out relevant bits of history and helping us connect those points into rich stories.
